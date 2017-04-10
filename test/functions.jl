@@ -12,11 +12,15 @@ end
 
 const functions_lib_path = CxxWrap._l_functions
 
+arr = [[1.0 2.0]
+       [3.0 4.0]]
+
 # Wrap the functions defined in C++
 wrap_modules(functions_lib_path)
 
 # Test functions from the CppHalfFunctions module
 @test CppHalfFunctions.half_d(3) == 1.5
+@test CppHalfFunctions.test_jltensor_access(arr) == 4.0
 @show methods(CppHalfFunctions.half_d)
 @test CppHalfFunctions.half_i(-2) == -1
 @test CppHalfFunctions.half_u(3) == 1

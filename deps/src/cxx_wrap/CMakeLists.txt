@@ -1,5 +1,8 @@
 project(CxxWrap)
 
+find_package(xtensor REQUIRED)
+include_directories(${xtensor_INCLUDE_DIR})
+
 cmake_minimum_required(VERSION 2.8.12)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -10,7 +13,7 @@ set(CxxWrap_VERSION 0.1)
 
 include(GenerateExportHeader)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 add_definitions(-DJULIA_ENABLE_THREADING)
 
 if(WIN32 AND DEFINED ENV{MSYSTEM})
@@ -33,6 +36,9 @@ add_library(cxx_wrap SHARED
   cxx_wrap.cpp
   functions.hpp
   functions.cpp
+  jlbuffer_adaptor.hpp
+  jlcontainer.hpp
+  jltensor.hpp
   type_conversion.hpp
   containers/const_array.hpp
   containers/tuple.hpp
@@ -62,6 +68,9 @@ install(
     cxx_wrap.hpp
     functions.hpp
     smart_pointers.hpp
+    jlcontainer.hpp
+    jltensor.hpp
+    jlbuffer_adaptor.hpp
     type_conversion.hpp
   DESTINATION
     include

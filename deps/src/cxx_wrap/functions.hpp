@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "array.hpp"
+#include "jltensor.hpp"
 #include "type_conversion.hpp"
 
 // This header provides helper functions to call Julia functions from C++

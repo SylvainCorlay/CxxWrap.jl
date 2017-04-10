@@ -1,5 +1,6 @@
 #include <cxx_wrap.hpp>
 #include <array.hpp>
+#include <jltensor.hpp>
 #include <functions.hpp>
 
 #include <algorithm>
@@ -17,6 +18,11 @@ namespace functions
 double half_function(const double d)
 {
   return 0.5*d;
+}
+
+double test_jltensor_access(const xt::jltensor<double, 2> m)
+{
+  return m(1, 1);
 }
 
 template<typename T>
@@ -84,6 +90,9 @@ void init_half_module(cxx_wrap::Module& mod)
 {
   // register a standard C++ function
   mod.method("half_d", half_function);
+
+  // Test jltensor
+  mod.method("test_jltensor_access", test_jltensor_access);
 
   // register some template instantiations
   mod.method("half_i", half_template<int>);
@@ -210,6 +219,7 @@ void init_test_module(cxx_wrap::Module& mod)
   mod.method("test_double_pointer", [] () { return static_cast<double*>(nullptr); });
   mod.method("test_double2_pointer", [] () { return static_cast<double**>(nullptr); });
   mod.method("test_double3_pointer", [] () { return static_cast<double***>(nullptr); });
+
 }
 
 }

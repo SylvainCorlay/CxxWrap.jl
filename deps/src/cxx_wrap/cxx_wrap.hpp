@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "array.hpp"
+#include "jltensor.hpp"
 #include "smart_pointers.hpp"
 #include "type_conversion.hpp"
 

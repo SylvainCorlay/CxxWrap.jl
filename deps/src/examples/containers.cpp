@@ -42,5 +42,17 @@ JULIA_CPP_MODULE_BEGIN(registry)
     return true;
   });
 
+  containers.method("check_mutable_array", [](cxx_wrap::ArrayRef<double, 2> arr)
+  {
+    for(auto el : arr)
+    {
+      if(el != 1.0)
+      {
+        return false;
+      }
+    }
+    return true;
+  });
+
   containers.export_symbols("test_tuple", "const_ptr", "const_ptr_arg", "const_vector", "const_matrix");
 JULIA_CPP_MODULE_END
