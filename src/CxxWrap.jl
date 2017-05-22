@@ -104,9 +104,9 @@ end
 # Encapsulate information about a function
 type CppFunctionInfo
   name::Any
-  argument_types::Array{DataType,1}
-  reference_argument_types::Array{DataType,1}
-  return_type::DataType
+  argument_types::Array{Type,1}
+  reference_argument_types::Array{Type,1}
+  return_type::Type
   function_pointer::Ptr{Void}
   thunk_pointer::Ptr{Void}
 end
@@ -146,11 +146,11 @@ function exported_symbols(registry::Ptr{Void}, modname::AbstractString)
 end
 
 function reference_types(registry::Ptr{Void}, modname::AbstractString)
-  ccall((:get_reference_types, cxx_wrap_path), Array{DataType}, (Ptr{Void},AbstractString), registry, modname)
+  ccall((:get_reference_types, cxx_wrap_path), Array{Type}, (Ptr{Void},AbstractString), registry, modname)
 end
 
 function allocated_types(registry::Ptr{Void}, modname::AbstractString)
-  ccall((:get_allocated_types, cxx_wrap_path), Array{DataType}, (Ptr{Void},AbstractString), registry, modname)
+  ccall((:get_allocated_types, cxx_wrap_path), Array{Type}, (Ptr{Void},AbstractString), registry, modname)
 end
 
 # Interpreted as a constructor for Julia  > 0.5
@@ -396,8 +396,8 @@ end
 
 immutable SafeCFunction
   fptr::Ptr{Void}
-  return_type::DataType
-  argtypes::Array{DataType,1}
+  return_type::Type
+  argtypes::Array{Type,1}
 end
 
 safe_cfunction(f::Function, rt::DataType, args::Tuple) = SafeCFunction(cfunction(f, rt, args), rt, [t for t in args])
